@@ -1,3 +1,7 @@
 node_modules
+<<<<<<< HEAD
 .env
 /config/keys.js
+=======
+.env
+>>>>>>> parent of d772b3a... google auth
