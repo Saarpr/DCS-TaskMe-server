@@ -1,6 +1,6 @@
 const Task = require('../models/task');
 
-exports.TaskDBcontroller = {
+exports.taskController = {
     getTasks(req, res) {
         const query = req.query; 
         if(Object.keys(query).length == 0){

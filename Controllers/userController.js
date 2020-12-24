@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-exports.UserDBcontroller = {
+exports.userController = {
     getUsers(req, res) {
         const query = req.query; 
         if(Object.keys(query).length == 0){
