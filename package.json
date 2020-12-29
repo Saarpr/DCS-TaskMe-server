@@ -25,5 +25,14 @@
     "passport-google-oauth": "^2.0.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saarpr/DCS-TaskMe-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Saarpr/DCS-TaskMe-server/issues"
+  },
+  "homepage": "https://github.com/Saarpr/DCS-TaskMe-server#readme",
+  "description": ""
 }
