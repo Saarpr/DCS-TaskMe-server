@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema } = require('mongoose');
 
 const taksSchema = new Schema({
     taskName: { type: String },
@@ -7,6 +7,5 @@ const taksSchema = new Schema({
     dateTime: { type: Date },
 });
 
-const Task = model('Task', taksSchema);
 
-module.exports = Task;
+module.exports = taksSchema;

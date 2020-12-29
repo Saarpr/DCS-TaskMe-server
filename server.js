@@ -6,7 +6,6 @@ const keys = require('./config/keys');
 const app = express();
 const port = process.env.PORT || 3000;
 const passportSetup = require("./config/passport-setup");
-const { userRouter } = require("./Routers/userRouter");
 const { taskRouter } = require("./Routers/taskRouter");
 const { authRouter } = require("./Routers/auth-routh");
 const { profileRouter } = require("./Routers/profile-routh");
@@ -25,22 +24,18 @@ app.use(cookieSession({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(express.static("../client/DCS-TaskMe-client"));
 /////////////////Login/////////////////////
 app.get('/', (req, res)=> {
   res.render('home.ejs',{user: req.user});
 });
 
 app.use('/auth',authRouter);
-app.use('/profile',profileRouter);
+app.use('/profile', profileRouter, express.static("../client/DCS-TaskMe-client"));
 
 
 //////////////////////////////////////
 
-
-
-// app.use('/api/users', userRouter);
-// app.use('/api/tasks', taskRouter);
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
