@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine','ejs');
-app.set("views", "DCS-TaskMe-client");
+app.set("views", "./DCS-TaskMe-client");
 
 app.use(cookieSession({
   maxAge:24*60*60*1000,
@@ -24,14 +24,14 @@ app.use(cookieSession({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static("DCS-TaskMe-client"));
+app.use(express.static("./DCS-TaskMe-client"));
 /////////////////Login/////////////////////
 app.get('/', (req, res)=> {
   res.render('home.ejs',{user: req.user});
 });
 
 app.use('/auth',authRouter);
-app.use('/profile', profileRouter, express.static("DCS-TaskMe-client"));
+app.use('/profile', profileRouter, express.static("./DCS-TaskMe-client"));
 
 
 //////////////////////////////////////
