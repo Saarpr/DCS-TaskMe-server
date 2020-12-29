@@ -8,8 +8,17 @@ const authCheck = (req,res,next)=>{
     }
 };
 
+
 profileRouter.get('/', authCheck, (req, res) => {
     res.render('profile', { user: req.user });
+
+});
+
+
+profileRouter.get('/user', authCheck, (req, res) => {
+    console.log("Hi",req.user);
+    
+    res.send(req.user);    
 });
 
 module.exports = {profileRouter}; 
