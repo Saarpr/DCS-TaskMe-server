@@ -27,7 +27,7 @@ app.use(passport.session());
 app.use(express.static("./DCS-TaskMe-client/"));
 /////////////////Login/////////////////////
 app.get('/', (req, res)=> {
-  res.sendFile(__dirname + "/DCS-TaskMe-client/home.html");
+  res.sendFile( "/DCS-TaskMe-client/home.html");
 });
 
 app.use('/auth',authRouter);
