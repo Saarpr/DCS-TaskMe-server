@@ -20,25 +20,10 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "mongoose": "^5.11.8",
-<<<<<<< HEAD
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-google-oauth": "^2.0.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0"
   }
-=======
-    "morgan": "^1.10.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Saarpr/DCS-TaskMe-server.git"
-  },
-  "keywords": [],
-  "bugs": {
-    "url": "https://github.com/Saarpr/DCS-TaskMe-server/issues"
-  },
-  "homepage": "https://github.com/Saarpr/DCS-TaskMe-server#readme",
-  "description": ""
->>>>>>> 1840b8e4207b0299cffb8d436c0d7cb817d57b2f
 }
