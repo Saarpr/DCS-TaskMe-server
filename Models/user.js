@@ -1,13 +1,11 @@
 const { Schema, model } = require('mongoose');
+const Task = require('../Models/task');
 
 const userSchema = new Schema({
     googleId: { type: String },
     userName: { type: String },
     thumbnail: { type: String },
-    // gender: { type: String },
-    // age: { type: String },
-    // email: { type: String },
-    // avatar: { type: String },
+    tasks: [Task]
 }, { collection: 'users' });
 
 const User = model('User', userSchema);
