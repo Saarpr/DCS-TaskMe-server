@@ -1,7 +1,8 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const keys = require('./keys');
 const User = require('../Models/user');
+const consts = require('../constants');
+const { G_ID, G_SECRET } = consts;
 
 passport.serializeUser((user,done)=>{
   done(null,user.id);
@@ -17,8 +18,8 @@ passport.deserializeUser((id,done)=>{
 passport.use(
   new GoogleStrategy({
     // options for google strategy
-    clientID: keys.google.clientID,
-    clientSecret: keys.google.clientSecret,
+    clientID: G_ID,
+    clientSecret: G_SECRET,
     callbackURL: '/auth/google/redirect'
   }, (accessToken, refreshToken, profile, done) => {
     // check if user already exists in our own db

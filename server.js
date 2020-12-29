@@ -2,14 +2,14 @@ const express = require("express");
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const session = require('express-session');
-const keys = require('./config/keys');
 const app = express();
 const port = process.env.PORT || 3000;
 const passportSetup = require("./config/passport-setup");
 const { taskRouter } = require("./Routers/taskRouter");
 const { authRouter } = require("./Routers/auth-routh");
 const { profileRouter } = require("./Routers/profile-routh");
-
+const consts = require('./constants');
+const {  COOKIEKEY } = consts;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -19,7 +19,7 @@ app.set("views", "../client/DCS-TaskMe-client");
 
 app.use(cookieSession({
   maxAge:24*60*60*1000,
-  keys:[keys.session.cookieKey]
+  keys:[COOKIEKEY]
 }));
 
 app.use(passport.initialize());
