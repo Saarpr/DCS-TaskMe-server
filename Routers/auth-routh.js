@@ -2,11 +2,6 @@ const authRouter = require('express').Router();
 const passport = require('passport');
 
 
-// auth login
-// authRouter.get('/login', (req, res) => {
-//     res.render('login', { user: req.user });
-// });
-
 // auth logout
 authRouter.get('/logout', (req, res) => {
     // handle with passport
