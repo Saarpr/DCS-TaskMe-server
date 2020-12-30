@@ -1,0 +1,124 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+  <template id="template-login-page">
+    <div class="page login">
+      <button class="login-btn">Login</button>
+    </div>
+  </template>
+
+  <template id="template-home-page">
+    <div>
+      This is the home page!
+
+      <div id="tasks"></div>
+    </div>
+  </template>
+</head>
+<body>
+<div id="app">
+  <div class="page">
+    Loading...
+  </div>
+</div>
+
+<script>
+  const apiRoot = '';
+
+  let app = {
+    rootEl: null,
+    user: null,
+    loginErr: '',
+
+    init() {
+      app.rootEl = document.getElementById('app');
+      if (!app.rootEl){
+        console.error('Failed to load page');
+      }
+
+      this.getUser();
+    },
+    getUser(){
+      $.get('/profile/')
+              .done(data => {
+                console.log('DONE: getUser', data);
+                app.user = data;
+                app.render();
+              })
+              .fail(err => {
+                // Because we failed, we need to redirect to auth
+                console.log('FAIL: getUser', err);
+                app.user = null;
+                app.loginErr = err.status + ' ' + err.statusText;
+
+                app.render();
+              });
+    },
+
+    render(){
+      if (app.user) {
+        this.renderPage(homePage.render());
+      } else {
+        this.renderPage(loginPage.render());
+      }
+    },
+
+    renderPage(page){
+      this.rootEl.innerHTML = '';
+      this.rootEl.append(page);
+    }
+  };
+
+  let loginPage = {
+    render(){
+      let template = document.getElementById('template-login-page').content.cloneNode(true).children[0];
+
+      let btnEl = template.querySelector('.login-btn');
+      btnEl.addEventListener('click', e => {
+        e.preventDefault();
+        window.location.replace(apiRoot + '/auth/login?redirect=' + btoa(window.location.href));
+      });
+
+      return template;
+    }
+  }
+
+  let homePage = {
+    templateId: 'template-home-page',
+    render(){
+      let template = document.getElementById(this.templateId).content.cloneNode(true).children[0];
+      this.init(template);
+      return template;
+    },
+    init(target){
+      let tasksContainer = target.querySelector('#tasks');
+      console.log(app.user.tasks);
+
+      for(let currTask of app.user.tasks){
+        tasksContainer.append(taskItem.render(Object.values(currTask).join('')));
+      }
+    }
+  }
+
+  let taskItem = {
+    render(task){
+      let el = $('<li class="task">' + task  + '</li>');
+
+      return el[0];
+    }
+  }
+
+  jQuery(() => {
+    app.init();
+  });
+</script>
+</body>
+</html>

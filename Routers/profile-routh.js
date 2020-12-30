@@ -1,15 +1,18 @@
 const profileRouter = require('express').Router();
 const authCheck = (req,res,next)=>{
     if(!req.user){
-        res.redirect('/auth/login');
+        res.status(403).send();
     }
     else{
         next();
     }
 };
 
+
 profileRouter.get('/', authCheck, (req, res) => {
-    res.render('profile', { user: req.user });
+    console.log("Hi",req.user);
+    
+    res.send(req.user);    
 });
 
 module.exports = {profileRouter}; 
