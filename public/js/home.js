@@ -1,37 +1,41 @@
+
 $(function () {
     usersOperationsListeners();
-    $.ajax({
-        url: 'http://localhost:5500/profile/user',
-        type: 'GET',
-        success: function (profile) {
-                console.log(profile);
-            }
-        // error: function(){
-        //     location.replace("http://localhost:5500/auth/google")
-        // }
-    });
+    isLoggedIn();
 });
 
-function getlogin() {
-    // alert("inside");
-    // location.replace("http://localhost:5500/auth/google")
+function isLoggedIn(){
     $.ajax({
-        url: 'http://localhost:5500/profile/user',
+        url: 'http://localhost:5500/profile/',
         type: 'GET',
         success: function (profile) {
-                console.log(profile);
-            },
-        error: function(){
-            location.replace("http://localhost:5500/auth/google")
+            renderProfile(profile);
+            console.log(profile);
         }
     });
 }
 
+function getlogin() {
+        window.location.replace("" + '/auth/login?redirect=' + btoa(window.location.href));
+};
+
+function renderProfile(profile){
+    $(".container").empty();
+        $(".container").append(
+            '<p>' +
+            'Name: ' + profile.userName + '<br>' +
+            'ID: ' + profile.googleId + '<br>' +
+            '<p>'+
+            '<img src="' + profile.thumbnail + '" style="display:block;position:absolute; margin-top:30px">'
+)
+};
 
 function usersOperationsListeners() {
 
-    //GET
+    //Click login
     $("#login_btn").click(() => {
         getlogin();
     });
+
+    //
 }

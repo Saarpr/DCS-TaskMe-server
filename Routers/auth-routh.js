@@ -11,9 +11,8 @@ authRouter.get('/login', (req, res) => {
 authRouter.get('/logout', (req, res) => {
     // handle with passport
     req.logout();
-    res.status(403).send();
-
-    // res.redirect('/');
+    // res.status(403).send();
+    res.redirect('/');
 });
 
 // auth with google+
