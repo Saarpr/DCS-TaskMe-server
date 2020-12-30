@@ -1,7 +1,7 @@
 const profileRouter = require('express').Router();
 const authCheck = (req,res,next)=>{
     if(!req.user){
-        res.redirect('/auth/logout');
+        res.status(403).send();
     }
     else{
         next();
