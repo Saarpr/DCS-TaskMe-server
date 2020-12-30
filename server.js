@@ -3,7 +3,7 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const session = require('express-session');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5500;
 const passportSetup = require("./config/passport-setup");
 const { taskRouter } = require("./Routers/taskRouter");
 const { authRouter } = require("./Routers/auth-routh");
@@ -14,8 +14,8 @@ const {  COOKIEKEY } = consts;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.set('view engine','ejs');
-app.set("views", "../client/DCS-TaskMe-client");
+// app.set('view engine','ejs');
+// app.set("views", "../client/DCS-TaskMe-client");
 
 app.use(cookieSession({
   maxAge:24*60*60*1000,
@@ -24,14 +24,14 @@ app.use(cookieSession({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static("../client/DCS-TaskMe-client"));
+// app.use(express.static("../client/DCS-TaskMe-client"));
 /////////////////Login/////////////////////
-app.get('/', (req, res)=> {
-  res.render('home.ejs',{user: req.user});
-});
+// app.get('/', (req, res)=> {
+//   res.render('home.ejs',{user: req.user});
+// });
 
 app.use('/auth',authRouter);
-app.use('/profile', profileRouter, express.static("../client/DCS-TaskMe-client"));
+app.use('/profile', profileRouter);
 
 
 //////////////////////////////////////
@@ -44,12 +44,10 @@ app.use((req, res, next) => {
 });
 
 /////////////////Login/////////////////////
-
-app.use('/auth',authRouter);
   
-app.get('/', (req, res)=> {
-    res.render('home');
-  });
+// app.get('/', (req, res)=> {
+//     res.render('home');
+//   });
 
 //////////////////////////////////////
 
