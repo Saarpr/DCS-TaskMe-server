@@ -54,7 +54,7 @@ function renderProfile(profile){
     );
     profile.tasks.map(item=>{
         $("#ul-task").append(
-            `<li value="${item._id}">`+
+            `<li value=${item._id}>`+
                 `<div class="todo-content">`+
                     '<h4 class="todo-name">'+
                          `<strong>${item.taskName}</strong>`+
@@ -102,8 +102,8 @@ function updateTask(user, taskID){
         task.taskName = $("#taskName").val();
     if ($("#taskColor").val())
         task.color = $("#taskColor").val();
-    if ($("#meeting-time").val())
-        task.dateTime = $("#meeting-time").val();
+    // if ($("#meeting-time").val())
+    //     task.dateTime = $("#meeting-time").val();
     console.log(task);
     updateTaskApi(user, task);
 };

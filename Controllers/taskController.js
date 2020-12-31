@@ -21,9 +21,11 @@ exports.tasksController = {
 
     updateTask(req, res) {
         const { body } = req;
+        console.log("this is body 1" , body)
         User.findOne({googleId:req.params.id})
             .then(node => {
-                item = node.tasks.find(o => o._id == body._id)
+                let item = node.tasks.find(o => o._id == body._id)
+                console.log("this is body 2" , body)
                 if(body.taskName)
                     item["taskName"] = body.taskName
                 if(body.color)
@@ -32,6 +34,8 @@ exports.tasksController = {
                     item["duration"] = body.duration
                 if(body.dateTime)
                     item["taskName"] = body.dateTime
+                console.log("this is item" , item)
+                console.log("this is node" , node)
                 return node.save()
                     .then(node => res.send(node.tasks))})
 

@@ -1083,6 +1083,7 @@ fieldset[disabled] .btn-link:focus {
   font-size: 22px;
   line-height: 1.227;
   border-radius: 6px;
+  margin-bottom: 100px;
 }
 
 .btn-lg, .btn-group-lg > .btn {
