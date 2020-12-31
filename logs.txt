@@ -976,6 +976,7 @@ GET 304 /js/home.js  90.699 ms - Thu, 31 Dec 2020 12:56:09 GMT
 GET 304 /js/timer.js  84.471 ms - Thu, 31 Dec 2020 12:56:09 GMT
 GET 304 /images/task-management.png  83.582 ms - Thu, 31 Dec 2020 12:56:09 GMT
 GET 200 /profile/  86.524 ms - Thu, 31 Dec 2020 12:56:09 GMT
+<<<<<<< HEAD
 GET 304 /  4.473 ms - Thu, 31 Dec 2020 14:00:07 GMT
 GET 304 /style/bootstrap.min.css  2.528 ms - Thu, 31 Dec 2020 14:00:07 GMT
 GET 304 /js/flat-ui.js  2.375 ms - Thu, 31 Dec 2020 14:00:07 GMT

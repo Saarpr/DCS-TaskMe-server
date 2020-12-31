@@ -33,19 +33,19 @@ function renderProfile(profile){
     $(".container").empty();
     $("#header-nav").append(
         `<img id="profilePic" src="${profile.thumbnail}" alt="profilePic">`+
-            `<button id="logoutBtn" class="btn btn-embossed btn-primary">`+
+            `<button id="logoutBtn" style ="position: absolute; right:10px;" class="btn btn-embossed btn-primary">`+
                 'Logout' +
             `</button>`
     );
 
     $(".container").append(
         '<div id="content">'+
-            `<h2>Tasks <br> ${profile.userName}</h2>`+
+            `<h2>Hello ${profile.userName}</h2>`
+            +'<h3>Here is your upcoming tasks</h3>'+
         '<div class="row demo-samples">'+
             '<div class="col-4">'+
                 '<div class="todo">'+
                     '<ul id="ul-task">'+
-
                     '</ul>'+
                 '</div>'+
             '</div>'+
@@ -80,23 +80,30 @@ function renderProfile(profile){
 
 //////////////////////////////Update_Start/////////////////////////////////
 function updateForm(){
+    $(".fr").empty();
     $("#crud_forms").append(
+        '<div class="fr" style="width:400px; display:flex;flex-direction:column; margin:auto;">'+
         '<br>'+
         '<label for="taskName">Task Name</label>'+
         '<input type="text" class="form-control" name="taskName" id="taskName"/>'   +
-        '<label for="color">Color</label>'+
+        '<label for="color">Description</label>'+
         '<input type="text" class="form-control" name="color" id="taskColor"/>'+
-        '<button id="btn-submit" type="submit">Add Task</button>'
+        '<label htmlFor="meeting-time">Time and Date:</label>'+
+        '<input type="datetime-local" id="meeting-time" name="meeting-time" value="2018-06-12T19:30" min="2020-06-07T00:00" max="2022-06-14T00:00">'+'<br>'+
+        '<button id="btn-submit" class="btn btn-hg btn-primary type="submit">Update Task</button>'+
+        '</div>'
     )
 }
 
 function updateTask(user, taskID){
     let task = {};
-    task._id=taskID
+    task._id=taskID;
     if ($("#taskName").val())
         task.taskName = $("#taskName").val();
     if ($("#taskColor").val())
         task.color = $("#taskColor").val();
+    if ($("#meeting-time").val())
+        task.dateTime = $("#meeting-time").val();
     console.log(task);
     updateTaskApi(user, task);
 };
@@ -117,15 +124,18 @@ function updateTaskApi(user, task){
 
 //////////////////////////////ADD_Start/////////////////////////////////
 function addForm(){
+    $(".fr").empty();
     $("#crud_forms").append(
+        '<div class="fr" style="width:400px; display:flex;flex-direction:column; margin:auto;">'+
         '<br>'+
         '<label for="taskName">Task Name:</label>'+
         '<input type="text" class="form-control" name="taskName" id="taskName"/>'   +
-        '<label for="color">Color:</label>'+
+        '<label for="color">Description:</label>'+
         '<input type="text" class="form-control" name="color" id="taskColor"/>'+
         '<label htmlFor="meeting-time">Time and Date:</label>'+
         '<input type="datetime-local" id="meeting-time" name="meeting-time" value="2018-06-12T19:30" min="2020-06-07T00:00" max="2022-06-14T00:00">'+'<br>'+
-        '<button id="btn-submit" type="submit">Add Task</button>'
+        '<button id="btn-submit" class="btn btn-hg btn-primary type="submit">Add Task</button>' +
+        '</div>'
     )
 }
 
@@ -197,7 +207,6 @@ function usersOperationsListeners(profile) {
     //Click update
     $(".btn-warning").click(() => {
         let taskID = $(".todo-done").attr("value");
-        // let taskID = document.querySelector('input[name="optionsRadios"]:checked').value;
         updateForm();
         console.log(profile)
         $("#btn-submit").click(()=> {
