@@ -41,18 +41,27 @@ function renderProfile(profile){
     $(".container").append(
         '<div id="content">'+
             `<h2>Tasks <br> ${profile.userName}</h2>`+
-        '<div id="radio-btn">'+
+        '<div class="row demo-samples">'+
+            '<div class="col-4">'+
+                '<div class="todo">'+
+                    '<ul id="ul-task">'+
 
+                    '</ul>'+
+                '</div>'+
+            '</div>'+
         '</div>'+
         '</div>'
     );
-
     profile.tasks.map(item=>{
-        $("#radio-btn").append(
-            '<label class="radio">'+
-                `<input type="radio" name="optionsRadios" id="optionsRadios1" value=${item._id} data-toggle="radio">`+
-            item.taskName+
-            '</label>'
+        $("#ul-task").append(
+            `<li value="${item._id}">`+
+                `<div class="todo-content">`+
+                    '<h4 class="todo-name">'+
+                         `<strong>${item.taskName}</strong>`+
+                    '</h4>'+
+                    item.dateTime+
+               ' </div>'+
+            '</li>'
         )
     });
 
@@ -173,8 +182,8 @@ function usersOperationsListeners(profile) {
     });
     //Click delete
     $(".btn-danger").click(() => {
-        let taskID = document.querySelector('input[name="optionsRadios"]:checked').value;
-        // console.log(profile, rates)
+        let taskID = $(".todo-done").attr("value");
+        // console.log(profile, taskID)
         deleteTaskById(profile, taskID);
     });
     //Click add
@@ -187,11 +196,16 @@ function usersOperationsListeners(profile) {
     });
     //Click update
     $(".btn-warning").click(() => {
-        let taskID = document.querySelector('input[name="optionsRadios"]:checked').value;
+        let taskID = $(".todo-done").attr("value");
+        // let taskID = document.querySelector('input[name="optionsRadios"]:checked').value;
         updateForm();
         console.log(profile)
         $("#btn-submit").click(()=> {
             updateTask(profile, taskID)
         })
+    });
+    $('.todo').on('click', 'li', function () {
+        $('.todo-done').addClass('todo-content').removeClass('todo-done');
+        $(this).toggleClass('todo-done');
     });
 }

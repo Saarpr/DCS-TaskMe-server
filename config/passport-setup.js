@@ -36,7 +36,6 @@ passport.use(
           thumbnail: profile._json.picture
         }).save().then((newUser) => {
           done(null,newUser);
-          // do something
         });
       }
     });

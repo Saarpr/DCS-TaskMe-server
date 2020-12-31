@@ -242,7 +242,11 @@ blockquote {
   vertical-align: middle;
 }
 .demo-samples {
+  display: flex;
   margin-bottom: 46px;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
 }
 .demo-download-section {
   float: none;

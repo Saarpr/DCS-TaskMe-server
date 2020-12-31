@@ -198,6 +198,7 @@ String.prototype.repeat = function (num) {
 
     // Todo list
     $('.todo').on('click', 'li', function () {
+      $('.todo-done').addClass('todo-content').removeClass('todo-done');
       $(this).toggleClass('todo-done');
     });
 
