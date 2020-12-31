@@ -93,6 +93,7 @@ ol.linenums {
   margin-bottom: 0;
 }
 .container {
+
   width: 970px !important;
   background-color: lightgray;
   min-height: 950px;
@@ -361,6 +362,14 @@ blockquote {
   right: 10px;
 }
 
+#profilePic{
+  height: 38px;
+  width: 38px;
+  position: absolute;
+  right: 90px;
+  border-radius: 3px;
+}
+
 #tasks-box{
   display: flex;
   justify-content: center;
@@ -406,8 +415,9 @@ blockquote {
 #buttons {
   display: flex;
   justify-content: space-evenly;
+  width: 400px;
+  margin: auto;
 }
-
 
 #card-content {
   display: flex;

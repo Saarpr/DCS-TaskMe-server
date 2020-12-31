@@ -1,4 +1,6 @@
 const profileRouter = require('express').Router();
+const {tasksController} = require('../Controllers/taskController');
+
 const authCheck = (req,res,next)=>{
     if(!req.user){
         res.status(403).send();
@@ -8,11 +10,15 @@ const authCheck = (req,res,next)=>{
     }
 };
 
-
 profileRouter.get('/', authCheck, (req, res) => {
     console.log("Hi",req.user);
     
     res.send(req.user);    
 });
+
+profileRouter.post('/:id',tasksController.addTask);
+profileRouter.put('/:id',tasksController.updateTask);
+profileRouter.delete('/:id',tasksController.deleteTask);
+
 
 module.exports = {profileRouter}; 
