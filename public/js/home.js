@@ -49,10 +49,12 @@ function renderProfile(profile){
 
     profile.tasks.map(item=>{
         $("#radio-btn").append(
-            '<label class="radio">'+
+            '<div class="tile">'+
+            `<label class="radio" style="backgound-color = ${item.color}">`+
                 `<input type="radio" name="optionsRadios" id="optionsRadios1" value=${item._id} data-toggle="radio">`+
             item.taskName+
-            '</label>'
+            '</label>'+
+            '</div>'
         )
     });
 
