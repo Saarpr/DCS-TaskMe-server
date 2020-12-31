@@ -11,6 +11,7 @@ authRouter.get('/login', (req, res) => {
 authRouter.get('/logout', (req, res) => {
     // handle with passport
     req.logout();
+    req.session = null;
     // res.status(403).send();
     res.redirect('/');
 });

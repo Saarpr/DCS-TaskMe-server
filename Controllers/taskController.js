@@ -1,10 +1,8 @@
 const User = require('../Models/user');
 
-
 exports.tasksController = {
     addTask(req, res) {
         const { body } = req;
-        console.log(body);
         User.findOne({googleId:req.params.id})
             .then(node => {
                 node.tasks.push(body)
@@ -14,7 +12,6 @@ exports.tasksController = {
 
     deleteTask(req, res) {
         const { body } = req;
-        console.log(body);
         User.findOne({googleId:req.params.id})
             .then(node => {
                 node.tasks.pull({_id:body._id})
@@ -24,7 +21,6 @@ exports.tasksController = {
 
     updateTask(req, res) {
         const { body } = req;
-        console.log(body);
         User.findOne({googleId:req.params.id})
             .then(node => {
                 item = node.tasks.find(o => o._id == body._id)
@@ -38,5 +34,6 @@ exports.tasksController = {
                     item["taskName"] = body.dateTime
                 return node.save()
                     .then(node => res.send(node.tasks))})
+
     }
 }

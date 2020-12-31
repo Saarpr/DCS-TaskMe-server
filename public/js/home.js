@@ -40,7 +40,7 @@ function renderProfile(profile){
 
     $(".container").append(
         '<div id="content">'+
-            `<h2>${profile.userName} Tasks</h2>`+
+            `<h2>Tasks <br> ${profile.userName}</h2>`+
         '<div id="radio-btn">'+
 
         '</div>'+
@@ -69,6 +69,69 @@ function renderProfile(profile){
     usersOperationsListeners(profile);
 };
 
+//////////////////////////////Update_Start/////////////////////////////////
+function updateForm(){
+    $("#crud_forms").append(
+        '<br>'+
+        '<label for="taskName">Task Name</label>'+
+        '<input type="text" class="form-control" name="taskName" id="taskName"/>'   +
+        '<label for="color">Color</label>'+
+        '<input type="text" class="form-control" name="color" id="taskColor"/>'+
+        '<button id="btn-submit" type="submit">Add Task</button>'
+    )
+}
+
+function updateTask(user, taskID){
+    let task = {};
+    task._id=taskID
+    if ($("#taskName").val())
+        task.taskName = $("#taskName").val();
+    if ($("#taskColor").val())
+        task.color = $("#taskColor").val();
+    console.log(task);
+    updateTaskApi(user, task);
+};
+function updateTaskApi(user, task){
+    console.log(task);
+    $.ajax({
+        url: `http://localhost:5500/profile/${user.googleId}`,
+        type: 'PUT',
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify(task),
+        success: function () {
+            console.log(user)
+            window.location.replace("");
+        }
+    });
+};
+//////////////////////////////Update_Done/////////////////////////////////
+
+//////////////////////////////ADD_Start/////////////////////////////////
+function addForm(){
+    $("#crud_forms").append(
+        '<br>'+
+        '<label for="taskName">Task Name:</label>'+
+        '<input type="text" class="form-control" name="taskName" id="taskName"/>'   +
+        '<label for="color">Color:</label>'+
+        '<input type="text" class="form-control" name="color" id="taskColor"/>'+
+        '<label htmlFor="meeting-time">Time and Date:</label>'+
+        '<input type="datetime-local" id="meeting-time" name="meeting-time" value="2018-06-12T19:30" min="2020-06-07T00:00" max="2022-06-14T00:00">'+'<br>'+
+        '<button id="btn-submit" type="submit">Add Task</button>'
+    )
+}
+
+function addTask(user) {
+    let task = {};
+    if ($("#taskName").val())
+        task.taskName = $("#taskName").val();
+    if ($("#taskColor").val())
+        task.color = $("#taskColor").val();
+    if ($("#meeting-time").val())
+        task.dateTime = $("#meeting-time").val();
+    console.log(task);
+    addTaskById(user, task);
+};
+
 function addTaskById(user, obj) {
     console.log(obj);
     $.ajax({
@@ -82,28 +145,9 @@ function addTaskById(user, obj) {
         }
     });
 };
+//////////////////////////////ADD_Done/////////////////////////////////
 
-function addForm(){
-    $("#crud_forms").append(
-        '<br>'+
-        '<label for="taskName">Task Name</label>'+
-        '<input type="text" class="form-control" name="taskName" id="taskName"/>'   +
-        '<label for="color">Color</label>'+
-        '<input type="text" class="form-control" name="color" id="taskColor"/>'+
-        '<button id="btn-submit" type="submit">Add Task</button>'
-    )
-}
-
-function addTask(user) {
-    let task = {};
-    if ($("#taskName").val())
-        task.taskName = $("#taskName").val();
-    if ($("#taskColor").val())
-        task.color = $("#taskColor").val();
-    console.log(task);
-    addTaskById(user, task);
-};
-
+//////////////////////////////Delete_Start/////////////////////////////////
 function deleteTaskById(profile, taskID) {
     let obj = {_id:taskID}
     $.ajax({
@@ -139,6 +183,15 @@ function usersOperationsListeners(profile) {
         console.log(profile)
         $("#btn-submit").click(()=> {
             addTask(profile)
+        })
+    });
+    //Click update
+    $(".btn-warning").click(() => {
+        let taskID = document.querySelector('input[name="optionsRadios"]:checked').value;
+        updateForm();
+        console.log(profile)
+        $("#btn-submit").click(()=> {
+            updateTask(profile, taskID)
         })
     });
 }

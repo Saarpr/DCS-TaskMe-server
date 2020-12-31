@@ -11,14 +11,11 @@ const authCheck = (req,res,next)=>{
 };
 
 profileRouter.get('/', authCheck, (req, res) => {
-    console.log("Hi",req.user);
-    
     res.send(req.user);    
 });
 
 profileRouter.post('/:id',tasksController.addTask);
 profileRouter.put('/:id',tasksController.updateTask);
 profileRouter.delete('/:id',tasksController.deleteTask);
-
 
 module.exports = {profileRouter}; 
