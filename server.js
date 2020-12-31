@@ -10,13 +10,14 @@ const { profileRouter } = require("./Routers/profile-routh");
 const consts = require('./constants');
 const {  COOKIEKEY } = consts;
 const cors = require('cors');
-const { morganChalk , logger } = require("./logs");
-
-app.use(morganChalk);
-app.use(logger);
+// const { morganChalk , logger } = require("./logs");
+//
+// app.use(morganChalk);
+// app.use(logger);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 app.use(cookieSession({
     maxAge:10*60*1000,
@@ -34,6 +35,5 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something is broken!');
 });
 
-app.use(express.static('public'));
 
 app.listen(port, () => console.log('Express server is running on port ', port));

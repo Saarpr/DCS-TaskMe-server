@@ -1613,3 +1613,14 @@ GET 304 /js/home.js  104.753 ms - Thu, 31 Dec 2020 17:12:23 GMT
 GET 304 /js/timer.js  105.625 ms - Thu, 31 Dec 2020 17:12:23 GMT
 GET 304 /images/task-management.png  90.598 ms - Thu, 31 Dec 2020 17:12:23 GMT
 GET 200 /profile/  93.318 ms - Thu, 31 Dec 2020 17:12:23 GMT
+GET 200 /  6.195 ms - Thu, 31 Dec 2020 17:33:46 GMT
+GET 200 /style/bootstrap.min.css  2.137 ms - Thu, 31 Dec 2020 17:33:46 GMT
+GET 200 /style/flat-ui.css  1.704 ms - Thu, 31 Dec 2020 17:33:46 GMT
+GET 200 /style/demo.css  2.187 ms - Thu, 31 Dec 2020 17:33:46 GMT
+GET 200 /js/home.js  2.437 ms - Thu, 31 Dec 2020 17:33:46 GMT
+GET 200 /js/application.js  2.562 ms - Thu, 31 Dec 2020 17:33:46 GMT
+GET 200 /js/flat-ui.js  2.510 ms - Thu, 31 Dec 2020 17:33:46 GMT
+GET 200 /js/timer.js  1.008 ms - Thu, 31 Dec 2020 17:33:46 GMT
+GET 200 /images/task-management.png  1.284 ms - Thu, 31 Dec 2020 17:33:46 GMT
+GET 302 /auth/login?redirect=aHR0cDovL2xvY2FsaG9zdDo1MDAwLw==  7.992 ms - Thu, 31 Dec 2020 17:33:49 GMT
+GET 302 /auth/google  2.487 ms - Thu, 31 Dec 2020 17:33:49 GMT
