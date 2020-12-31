@@ -5,7 +5,7 @@ $(function () {
 
 function isLoggedIn(){
     $.ajax({
-        url: 'http://localhost:5500/profile/',
+        url: 'http://enigmatic-spire-75482.herokuapp.com/profile/',
         type: 'GET',
         success: function (profile) {
             renderProfile(profile);
@@ -21,7 +21,7 @@ function getlogin() {
 function getlogout(){
     console.log("im in")
     $.ajax({
-        url: 'http://localhost:5500/auth/logout',
+        url: 'http://enigmatic-spire-75482.herokuapp.com/auth/logout',
         type: 'GET',
         success: function () {
             window.location.replace("");
@@ -110,7 +110,7 @@ function updateTask(user, taskID){
 function updateTaskApi(user, task){
     console.log(task);
     $.ajax({
-        url: `http://localhost:5500/profile/${user.googleId}`,
+        url: `http://enigmatic-spire-75482.herokuapp.com/profile/${user.googleId}`,
         type: 'PUT',
         contentType: "application/json;charset=utf-8",
         data: JSON.stringify(task),
@@ -154,7 +154,7 @@ function addTask(user) {
 function addTaskById(user, obj) {
     console.log(obj);
     $.ajax({
-        url: `http://localhost:5500/profile/${user.googleId}`,
+        url: `http://enigmatic-spire-75482.herokuapp.com/profile/${user.googleId}`,
         type: 'POST',
         contentType: "application/json;charset=utf-8",
         data: JSON.stringify(obj),
@@ -170,7 +170,7 @@ function addTaskById(user, obj) {
 function deleteTaskById(profile, taskID) {
     let obj = {_id:taskID}
     $.ajax({
-        url: `http://localhost:5500/profile/${profile.googleId}`,
+        url: `http://enigmatic-spire-75482.herokuapp.com/profile/${profile.googleId}`,
         type: 'DELETE',
         contentType: "application/json;charset=utf-8",
         data: JSON.stringify(obj),
