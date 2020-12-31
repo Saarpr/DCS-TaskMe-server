@@ -14,7 +14,6 @@ passport.deserializeUser((id,done)=>{
   });
 });
 
-
 passport.use(
   new GoogleStrategy({
     // options for google strategy
@@ -23,12 +22,10 @@ passport.use(
     callbackURL: '/auth/google/redirect'
   }, (accessToken, refreshToken, profile, done) => {
     // check if user already exists in our own db
-    console.log(profile);
-    
+
     User.findOne({ googleId: profile.id }).then((currentUser) => {
       if (currentUser) {
         // already have this user
-        console.log('user is: ', currentUser);
         done(null,currentUser);
         // do something
       } else {
@@ -38,9 +35,7 @@ passport.use(
           googleId: profile.id,
           thumbnail: profile._json.picture
         }).save().then((newUser) => {
-          console.log(`new user created: ${newUser}`);
           done(null,newUser);
-          // do something
         });
       }
     });

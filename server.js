@@ -5,19 +5,21 @@ const session = require('express-session');
 const app = express();
 const port = process.env.PORT || 5500;
 const passportSetup = require("./config/passport-setup");
-const { taskRouter } = require("./Routers/taskRouter");
 const { authRouter } = require("./Routers/auth-routh");
 const { profileRouter } = require("./Routers/profile-routh");
 const consts = require('./constants');
 const {  COOKIEKEY } = consts;
 const cors = require('cors');
-app.use(cors());
+const { morganChalk , logger } = require("./logs");
 
+app.use(morganChalk);
+app.use(logger);
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieSession({
-    maxAge:24*60*60*1000,
+    maxAge:10*60*1000,
     keys:[COOKIEKEY]
 }));
 
