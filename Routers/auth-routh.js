@@ -18,13 +18,17 @@ authRouter.get('/logout', (req, res) => {
 
 // auth with google+
 authRouter.get('/google', passport.authenticate('google', {
-    scope: ['profile']
+    scope: ['profile','https://www.googleapis.com/auth/calendar']
 }));
+// authRouter.get('/google', passport.authenticate('google', {
+//     scope: ['profile']
+// }));
 
 //callback route for google to redirect to
 authRouter.get('/google/redirect', passport.authenticate('google'),(req, res) => {
-    // res.send(req.user);
-    res.redirect(req.session.returnTo);
+    res.send(req.user);
+    // res.sendFile("/Users/saarp/Desktop/Shenkar/DCS/TaskMe/client/tmp/index.html")
+    // res.redirect(req.session.returnTo);
 });
 
 module.exports = {authRouter};

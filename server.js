@@ -4,22 +4,26 @@ const cookieSession = require('cookie-session');
 const session = require('express-session');
 const app = express();
 const port = process.env.PORT || 5500;
+//////////////////////////////////////////////
+const {google} = require('googleapis');
+const request = require('request');
+const urlParse = require('url-parse');
+const queryParse = require('query-string');
+const bodyParser = require('body-parser');
+const axios = require('axios');
+//////////////////////////////////////////////
 const passportSetup = require("./config/passport-setup");
 const { authRouter } = require("./Routers/auth-routh");
-// const { profileRouter } = require("./Routers/profile-routh");
 const { taskRouter } = require("./Routers/task-route");
 
 const consts = require('./constants');
 const {  COOKIEKEY } = consts;
 const cors = require('cors');
-// const { morganChalk , logger } = require("./logs");
-//
-// app.use(morganChalk);
-// app.use(logger);
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 app.use(cookieSession({
     maxAge:10*60*1000,
