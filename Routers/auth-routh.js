@@ -28,3 +28,4 @@ authRouter.get('/google/redirect', passport.authenticate('google'),(req, res) =>
 });
 
 module.exports = {authRouter};
+
