@@ -28,7 +28,7 @@ authRouter.get('/google', passport.authenticate('google', {
 authRouter.get('/google/redirect', passport.authenticate('google'),(req, res) => {
     res.send(req.user);
     // res.sendFile("/Users/saarp/Desktop/Shenkar/DCS/TaskMe/client/tmp/index.html")
-    // res.redirect(req.session.returnTo);
+    res.redirect(req.session.returnTo);
 });
 
 module.exports = {authRouter};

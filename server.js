@@ -9,13 +9,11 @@ const {google} = require('googleapis');
 const request = require('request');
 const urlParse = require('url-parse');
 const queryParse = require('query-string');
-const bodyParser = require('body-parser');
 const axios = require('axios');
 //////////////////////////////////////////////
 const passportSetup = require("./config/passport-setup");
 const { authRouter } = require("./Routers/auth-routh");
 const { taskRouter } = require("./Routers/task-route");
-
 const consts = require('./constants');
 const {  COOKIEKEY } = consts;
 const cors = require('cors');
