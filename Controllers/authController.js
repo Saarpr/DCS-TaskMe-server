@@ -8,6 +8,8 @@ const mg = mailgun({ apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN });
 // jason web token
 const jwt = require('jsonwebtoken');
 const { json } = require('express');
+const bcrypt = require('bcrypt');
+
 
 exports.authController = {
     signUp(req, res) {
@@ -50,6 +52,7 @@ exports.authController = {
                     res.status(400).json({ error: "Incorrect or Expired link!" })
                 }
                 const { name, email, password, picture } = decodedToken;
+                // **add avatar to none google users 
                 User.findOne({ email }).exec((err, user) => {
                     if (user) {
                         return res.status(400).json({ error: "User with this email already exists." })
@@ -79,17 +82,32 @@ exports.authController = {
                     error: "This user does not exist, signup first!"
                 })
             }
-            if (user.password !== password) {
-                return res.status(401).json({
-                    error: "Email or password incorrect!"
-                })
-            }
-            const token = jwt.sign({ _id: user._id }, process.env.JWT_SIGNIN_KEY, { expiresIn: '3h' });
-            const { name, email, picture } = user;
-            res.json({
-                token,
-                user: { name, email, picture }
-            })
+            bcrypt.compare(password, user.password , function(err, result) {
+                if(err)
+                    return res.status(401).json({
+                        error: "Email or password incorrect!"
+                    })
+                if(result){
+                    const token = jwt.sign({ _id: user._id }, process.env.JWT_SIGNIN_KEY, { expiresIn: '3h' });
+                    const { name, email, picture } = user;
+                    res.json({
+                        token,
+                        user: { name, email, picture }
+                    })
+                }
+                else {
+                    return res.status(401).json({
+                        error: "Email or password incorrect!"
+                    })
+                }
+                // result == true
+            });
+            // if (user.password !== password) {
+            //     return res.status(401).json({
+            //         error: "Email or password incorrect!"
+            //     })
+            // }
+
         })
     },
 
