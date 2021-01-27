@@ -19,7 +19,7 @@ const userSchema = new Schema({
         type: String ,
         required: true ,
     },
-    thumbnail: { type: String },
+    picture: { type: String },
 }, { collection: 'users' });
 
 const User = model('User', userSchema);
