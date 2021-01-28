@@ -14,10 +14,9 @@ const bcrypt = require('bcrypt');
 exports.authController = {
     signUp(req, res) {
         const { name, email, password } = req.body;
-        console.log(name , email , password);
         User.findOne({ email }).exec((err, user) => {
             if (user) {
-                return res.status(400).json({ error: "User with this email already exists." })
+                return res.status(400).json({ error: "User with this email already exists." });
             }
             const token = jwt.sign({ name, email, password }, process.env.JWT_TOKEN_ACTIVATE, { expiresIn: '30m' });
             const data = {
@@ -40,28 +39,34 @@ exports.authController = {
                     message: 'Email has been sent, please activate your account'
                 })
             });
-
         })
     },
-
     activateAccount(req, res) {
         const { token } = req.body; //maybe get by headers
         if (token) {
             jwt.verify(token, process.env.JWT_TOKEN_ACTIVATE, function (err, decodedToken) {
-                if (err) {
+                if (!decodedToken) {
                     res.status(400).json({ error: "Incorrect or Expired link!" })
                 }
-                const { name, email, password, picture } = decodedToken;
-                // **add avatar to none google users 
+                const { name, email, password } = decodedToken;
+                let tmpPassword;
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(password , salt, function (error, hash) {
+                        if (err){
+                            return console.log(error);
+                        }
+                        tmpPassword = hash;
+                    });
+                });
                 User.findOne({ email }).exec((err, user) => {
                     if (user) {
                         return res.status(400).json({ error: "User with this email already exists." })
                     }
-                    let newUser = new User({ name, email, password, picture });
+                    let newUser = new User({ name, email, password: tmpPassword });
                     newUser.save((err, success) => {
                         if (err) {
                             console.log("Error in signup while account activation: ", err);
-                            return res.status(400), json({ error: 'error activating account' })
+                            return res.status(400), json({ error: 'error activating account' });
                         }
                         res.json({
                             message: "Signup success!"
@@ -90,6 +95,7 @@ exports.authController = {
                 if(result){
                     const token = jwt.sign({ _id: user._id }, process.env.JWT_SIGNIN_KEY, { expiresIn: '3h' });
                     const { name, email, picture } = user;
+                    req.session.user = { name, email, picture };
                     res.json({
                         token,
                         user: { name, email, picture }
@@ -100,15 +106,17 @@ exports.authController = {
                         error: "Email or password incorrect!"
                     })
                 }
-                // result == true
             });
-            // if (user.password !== password) {
-            //     return res.status(401).json({
-            //         error: "Email or password incorrect!"
-            //     })
-            // }
+
 
         })
+    },
+    checkAuth(req,res){
+        if(req.session.user){
+            res.send({loggedIn: true , user: req.session.user})
+        }else{
+            res.send({loggedIn: false})
+        }
     },
 
     googleLogin(req, res) {
@@ -125,8 +133,9 @@ exports.authController = {
                     } else {
                         if (user) {
                             const token = jwt.sign({ _id: user._id }, process.env.JWT_SIGNIN_KEY, { expiresIn: '3h' });
+                            //creat session here
                             const { _id, name, email, picture } = user;
-
+                            req.session.user = { name, email, picture };
                             res.json({
                                 token,
                                 user: { _id, name, email, picture }

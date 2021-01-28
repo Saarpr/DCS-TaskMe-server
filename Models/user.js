@@ -23,18 +23,19 @@ const userSchema = new Schema({
     picture: { type: String },
 }, { collection: 'users' });
 
-userSchema.pre('save', function (next) {
-    if (!this.isModified('password'))
-        return next();
-    bcrypt.genSalt(saltRounds, function (err, salt) {
-        bcrypt.hash(this.password , salt, function (err, hash) {
-            if (err)
-                return next(err);
-            this.password = passwordHash;
-            next();
-        });
-    });
-});
+// userSchema.pre('save', function (next) {
+//     if (!this.isModified('password'))
+//         return next();
+//     bcrypt.genSalt(10, function (err, salt) {
+//         bcrypt.hash(this.password , salt, function (err, hash) {
+//             if (err){
+//                 return next(err);
+//             }
+//             this.password = hash;
+//             next();
+//         });
+//     });
+// });
 
 const User = model('User', userSchema);
 

@@ -4,7 +4,7 @@ const {authController} = require('../Controllers/authController');
 authRouter.post('/signup' , authController.signUp);
 authRouter.post('/email-activate' , authController.activateAccount);
 authRouter.post('/sign-in' , authController.signIn);
-// authRouter.put('' , authController.);
+authRouter.get('/sign-in' , authController.checkAuth);
 
 authRouter.post('/googlelogin' , authController.googleLogin);
 
