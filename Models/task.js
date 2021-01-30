@@ -3,7 +3,7 @@ const searchable = require('mongoose-regex-search');
 
 
 const tasksSchema = new Schema({
-    userId: { type:String },
+    userEmail: { type:String },
     taskName: { type: String , searchable:true },
     durationMin: { type: Number },
     startTime: { type: Date, default: Date.now },

@@ -3,14 +3,15 @@ const Task = require('../Models/task');
 exports.tasksController = {
 
     getTasks(req, res) {
+        const { body } = req;
         const queryPar = req.query;
         if(Object.keys(queryPar).length == 0){              // if there is'nt query
-        Task.find({ userId: Number(req.params.userId) }) 
+        Task.find({ userEmail: (body.email) })
             .then(result => { res.json(result) })
             .catch(err => console.log(`Error getting Task from db: ${err}`));
         }
         else if(queryPar.category){                            // in case we want to filter category with query request
-            Task.find({ category : queryPar.category , userId : Number(req.params.userId) })
+            Task.find({ category : queryPar.category , userEmail : (body.email) })
             .then(result => { res.json(result) })
             .catch(err => console.log(`Error getting restaurant from db: ${err}`));
         }
@@ -33,12 +34,10 @@ exports.tasksController = {
      },
 
     searchTask(req,res){
-        const query = req.query;
-        // const findIt = "/" + query.searchBy + "/";
-         console.log(req.query.searchBy)
-        if(req.query.searchBy){
-            let result = Task.search( req.query.searchBy );
-            Task.find(result)
+        const { email , searchBy } = req.body;
+        if(searchBy){
+            let result = Task.search( searchBy );
+            Task.find(result).find({userEmail: email})
                 .then(result => { res.json(result)});
         }
     },

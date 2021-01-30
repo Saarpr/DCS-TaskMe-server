@@ -81,7 +81,7 @@ exports.authController = {
 
     signIn(req, res) {
         const { email, password } = req.body;
-        User.findOne({ email }).exec((err, user) => {
+        User.findOne({ email:email }).exec((err, user) => {
             if (!user) {      
                 return res.status(401).json({
                     error: "This user does not exist, signup first!"
@@ -96,9 +96,7 @@ exports.authController = {
                     const token = jwt.sign({ _id: user._id }, process.env.JWT_SIGNIN_KEY, { expiresIn: '3h' });
                     const { name, email, picture } = user;
                     req.session.user = { name, email, picture };
-                    res.json({
-                        token,
-                        user: { name, email, picture }
+                    res.json({token, user: { name, email, picture }
                     })
                 }
                 else {
@@ -150,6 +148,7 @@ exports.authController = {
                                     })
                                 }
                                 const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SIGNIN_KEY, { expiresIn: '3h' });
+                                req.session.user = { name, email, picture };
                                 const { name, email, picture } = newUser;
                                 res.json({
                                     token,
