@@ -5,6 +5,8 @@ authRouter.post('/signup' , authController.signUp);
 authRouter.post('/email-activate' , authController.activateAccount);
 authRouter.post('/sign-in' , authController.signIn);
 authRouter.get('/sign-in' , authController.checkAuth);
+authRouter.get('/logout' , authController.logout);
+
 
 authRouter.post('/googlelogin' , authController.googleLogin);
 

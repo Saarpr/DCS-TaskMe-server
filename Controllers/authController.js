@@ -116,6 +116,14 @@ exports.authController = {
             res.send({loggedIn: false})
         }
     },
+    logout(req,res){
+        if(req.session.user){
+            req.session.destroy();
+            res.send({loggedIn: false});
+        }else{
+            res.send({loggedIn: false});
+        }
+    },
 
     googleLogin(req, res) {
         const { tokenId } = req.body;
