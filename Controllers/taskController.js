@@ -52,7 +52,9 @@ exports.tasksController = {
         const {body} = req;
         Task.findOneAndUpdate({_id:body._id}, body, {new: true,useFindAndModify: false}, (err, task) => {
             if (err) return res.status(500).send(err);
-            return res.send(task);
+            return res.send({
+                message: "succesful"
+            });
         })
     }
 };
