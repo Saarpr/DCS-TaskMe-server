@@ -24,6 +24,7 @@ exports.tasksController = {
 
     addTask(req, res) {
         const { body } = req;
+        console.log(body);
         const newTask = new Task(body);
         const result = newTask.save();
         if(result){
@@ -50,6 +51,7 @@ exports.tasksController = {
 
     updateTask(req, res) {
         const {body} = req;
+        console.log(body);
         Task.findOneAndUpdate({_id:body._id}, body, {new: true,useFindAndModify: false}, (err, task) => {
             if (err) return res.status(500).send(err);
             return res.send({
