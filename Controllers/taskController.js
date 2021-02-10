@@ -61,45 +61,74 @@ exports.tasksController = {
     getTasksByCategory(req, res) {
         const body = req.body;
         let countBy = [
-            { "name": "Education", "all": 0, "done": 0 },
-            { "name": "Training", "all": 0, "done": 0 },
-            { "name": "Meeting", "all": 0, "done": 0 },
-            { "name": "Home", "all": 0, "done": 0 },
-            { "name": "General", "all": 0, "done": 0 }
+            { "name": "Education", "all": 0, "done": 0, "In progress": 0, "New": 0 , "mean": 0 },
+            { "name": "Training", "all": 0, "done": 0, "In progress": 0, "New": 0 , "mean": 0 },
+            { "name": "Meeting", "all": 0, "done": 0, "In progress": 0, "New": 0 , "mean": 0 },
+            { "name": "Home", "all": 0, "done": 0, "In progress": 0, "New": 0 , "mean": 0 },
+            { "name": "General", "all": 0, "done": 0, "In progress": 0, "New": 0 , "mean": 0 }
         ];
+        let overallHoursED, overallHoursTR , overallHoursME ,overallHoursHO ,overallHoursGE = 0; 
         // const inc = a => a + 1;
         Task.find({ userEmail: (body.email) })
             .then(result => {
                 result.map(task => {
                     if (task.category === "Education") {
-                        countBy[0]["all"] += 1;
+                        countBy[0].all += 1;
+                        overallHoursED += task.durationMin;
                         if (task.status === "Done")
                             countBy[0]["done"] += 1;
+                        if (task.status === "In progress")
+                            countBy[0]["In progress"] += 1;
+                        if (task.status === "New")
+                            countBy[0]["New"] += 1;
                     }
                     else if (task.category === "Training") {
                         countBy[1].all += 1;
+                        overallHoursTR += task.durationMin;
                         if (task.status === "Done")
                             countBy[1].done += 1;
+                        if (task.status === "In progress")
+                            countBy[1]["In progress"] += 1;
+                        if (task.status === "New")
+                            countBy[1]["New"] += 1;
                     }
                     else if (task.category === "Meeting") {
                         countBy[2].all += 1;
+                        overallHoursME += task.durationMin;
                         if (task.status === "Done")
                             countBy[2].done += 1;
+                        if (task.status === "In progress")
+                            countBy[2]["In progress"] += 1;
+                        if (task.status === "New")
+                            countBy[2]["New"] += 1;
                     }
                     else if (task.category === "Home") {
                         countBy[3].all += 1;
+                        overallHoursHO += task.durationMin;
                         if (task.status === "Done")
                             countBy[3].done += 1;
+                        if (task.status === "In progress")
+                            countBy[3]["In progress"] += 1;
+                        if (task.status === "New")
+                            countBy[3]["New"] += 1;
                     }
                     else if (task.category === "General") {
                         countBy[4].all += 1;
+                        overallHoursGE += task.durationMin;
                         if (task.status === "Done")
                             countBy[4].done += 1;
-                    }      
+                        if (task.status === "In progress")
+                            countBy[4]["In progress"] += 1;
+                        if (task.status === "New")
+                            countBy[4]["New"] += 1;
+                    }
                 })
-                countBy.map(item=> {
-                    console.log(item);
-                })
+                item[0].mean = overallHoursED / item[i].all;
+                item[1].mean = overallHoursTR / item[i].all;
+                item[2].mean = overallHoursME / item[i].all;
+                item[3].mean = overallHoursHO / item[i].all;
+                item[4].mean = overallHoursGE / item[i].all;
+
                 res.json(countBy);
             })
             .catch(err => console.log(`Error getting Task from db: ${err}`));
