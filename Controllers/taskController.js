@@ -67,7 +67,7 @@ exports.tasksController = {
             { "name": "Home", "all": 0, "done": 0, "In progress": 0, "New": 0 , "mean": 0 },
             { "name": "General", "all": 0, "done": 0, "In progress": 0, "New": 0 , "mean": 0 }
         ];
-        let overallHoursED, overallHoursTR , overallHoursME ,overallHoursHO ,overallHoursGE = 0; 
+        let overallHoursED =0, overallHoursTR=0 , overallHoursME=0,overallHoursHO =0,overallHoursGE = 0; 
         // const inc = a => a + 1;
         Task.find({ userEmail: (body.email) })
             .then(result => {
@@ -123,12 +123,11 @@ exports.tasksController = {
                             countBy[4]["New"] += 1;
                     }
                 })
-                item[0].mean = overallHoursED / item[i].all;
-                item[1].mean = overallHoursTR / item[i].all;
-                item[2].mean = overallHoursME / item[i].all;
-                item[3].mean = overallHoursHO / item[i].all;
-                item[4].mean = overallHoursGE / item[i].all;
-
+                countBy[0].mean = overallHoursED / countBy[0].all;
+                countBy[1].mean = overallHoursTR / countBy[1].all;
+                countBy[2].mean = overallHoursME / countBy[2].all;
+                countBy[3].mean = overallHoursHO / countBy[3].all;
+                countBy[4].mean = overallHoursGE / countBy[4].all;
                 res.json(countBy);
             })
             .catch(err => console.log(`Error getting Task from db: ${err}`));
