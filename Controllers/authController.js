@@ -5,7 +5,7 @@ const client = new OAuth2Client(process.env.G_ID);
 const mailgun = require("mailgun-js");
 const DOMAIN = process.env.MAILGUN_DOMAIN;
 const mg = mailgun({ apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN });
-// jason web token
+// json web token
 const jwt = require('jsonwebtoken');
 const { json } = require('express');
 const bcrypt = require('bcrypt');

@@ -1,12 +1,22 @@
 const taskRouter = require('express').Router();
 const {tasksController} = require('../Controllers/taskController');
+const {sharedTasksController} = require('../Controllers/sharedTasksController');
 
-taskRouter.post('/', tasksController.getTasks); // get all tasks of specific user
-taskRouter.post('/search/', tasksController.searchTask); // search for specific task by search word
-taskRouter.get('/view/:taskId', tasksController.getTask); // get specific task
-taskRouter.post('/add-task',tasksController.addTask); // add task to user
-taskRouter.put('/',tasksController.updateTask); // edit task of user
-taskRouter.delete('/:taskId',tasksController.deleteTask); // delete task
+
+taskRouter.post('/', tasksController.getTasks); // 
+taskRouter.post('/search/', tasksController.searchTask); // 
+taskRouter.get('/view/:taskId', tasksController.getTask); //
+taskRouter.post('/add-task',tasksController.addTask); //
+taskRouter.put('/',tasksController.updateTask); // 
+taskRouter.delete('/:taskId',tasksController.deleteTask); //
 taskRouter.post('/stats/', tasksController.getTasksByCategory); // 
+
+//shared tasks
+
+taskRouter.post('/share-task', sharedTasksController.shareTask); 
+taskRouter.post('/is-any-shared', sharedTasksController.countSharedTask); 
+taskRouter.post('/apply-shared', sharedTasksController.apllyShared); 
+
+
 
 module.exports = {taskRouter}; 

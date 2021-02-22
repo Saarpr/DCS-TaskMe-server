@@ -13,7 +13,7 @@ exports.tasksController = {
         else if (queryPar.category) {                            // in case we want to filter category with query request
             Task.find({ category: queryPar.category, userEmail: (body.email) })
                 .then(result => { res.json(result) })
-                .catch(err => console.log(`Error getting restaurant from db: ${err}`));
+                .catch(err => console.log(`Error getting Task from db: ${err}`));
         }
     },
 
@@ -30,7 +30,7 @@ exports.tasksController = {
         if (result) {
             res.json(newTask);
         } else {
-            res.status(404).send("Error saving a restaurant");
+            res.status(404).send("Error saving a Task");
         }
     },
 
@@ -46,7 +46,7 @@ exports.tasksController = {
     deleteTask(req, res) {
         Task.deleteOne({ _id: req.params.taskId })
             .then(docs => { res.json(docs) })
-            .catch(err => console.log(`Error deleting restaurant from db: ${err}`));
+            .catch(err => console.log(`Error deleting Task from db: ${err}`));
     },
 
     updateTask(req, res) {
