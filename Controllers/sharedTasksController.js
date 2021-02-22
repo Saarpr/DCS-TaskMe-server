@@ -3,7 +3,7 @@ const Task = require('../Models/task');
 const User = require('../Models/user');
 
 exports.sharedTasksController = {
-    shareTask(req, res) {                             // get _id and target email then --> get task content from db --> add tasks to shared task
+    shareTask(req, res) {
         const { _id, targetUserEmail } = req.body;
         User.findOne({ email: targetUserEmail })
             .then(re => {
@@ -35,7 +35,7 @@ exports.sharedTasksController = {
             })
             .catch(err => console.log(`Error getting Task from shared tasks: ${err}`))
     },
-    countSharedTask(req, res) {                   //check if there is any tasks to share in order to notify the user
+    countSharedTask(req, res) {
         const { userEmail } = req.body;
         sharedTask.find({ targetUserEmail: userEmail })
             .then(result => {
@@ -47,7 +47,7 @@ exports.sharedTasksController = {
             })
             .catch(err => console.log(`Error getting Task from db: ${err}`));
     },
-    apllyShared(req, res) {          // given email --> response if there is task in shared task --> return task to user --> delete task from shared tasks
+    apllyShared(req, res) {
         const { userEmail } = req.body;
         sharedTask.find({ targetUserEmail: userEmail })
             .then(result => {
