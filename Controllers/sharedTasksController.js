@@ -53,23 +53,18 @@ exports.sharedTasksController = {
             .then(result => {
                 if (!result.length)
                     res.json({ status: "failed" });
-                let task = result[0].toJSON();
-                delete task._id;
-                task.userEmail = task.targetUserEmail;
-                delete task.targetUserEmail;
-                delete task.sourceUserEmail;
-                console.log(task);
-                const newTask = new Task(task);
-                const success = newTask.save();
-                if (success) {
-                    sharedTask.deleteOne({ targetUserEmail: userEmail })
-                        .then(response => res.json({ status: "success" }))
-                        .catch(error => res.json(error))
-                } else {
-                    res.json({ status: "failed" });
-                }
-            })
-            .catch(err => console.log(`Error getting Task from shared tasks: ${err}`));
+                result.map((item)=>{
+                    let task = item.toJSON();
+                    delete task._id;
+                    task.userEmail = task.targetUserEmail;
+                    delete task.targetUserEmail;
+                    delete task.sourceUserEmail;
+                    const newTask = new Task(task);
+                    newTask.save();
+                })
+                sharedTask.deleteMany({ targetUserEmail: userEmail })
+                    .then(response => res.json({ status: "success" }))
+                    .catch(error => res.json(error))
+            }).catch(err => console.log(`Error getting Task from shared tasks: ${err}`));
     },
-
 };
