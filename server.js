@@ -10,7 +10,7 @@ const session = require('express-session');
 
 
 app.use(cors({
-    origin: ["http://60344aa3909f3e1a7f73b137--taskmeds.netlify.app"],
+    origin: ["https://taskmeds.netlify.app"],
     methods: ["GET", "POST" , "PUT" , "DELETE"],
     credentials: true
 }));
