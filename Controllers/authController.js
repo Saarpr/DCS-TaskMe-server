@@ -54,34 +54,29 @@ exports.authController = {
                 console.log("name:", name)
                 console.log("email:", email)
                 console.log("password:", password)
-                let tmpPassword;
-
                 bcrypt.genSalt(10, function (err, salt) {
                     console.log("Encrypting ")
                     bcrypt.hash(password, salt, function (error, hashPass) {
                         if (err) {
                             return console.log(error);
                         }
-                        console.log("Hashing", hashPass)
-                        tmpPassword = hashPass;
+                        User.findOne({email}).exec((err, user) => {
+                            if (user) {
+                                return res.status(400).json({error: "User with this email already exists."})
+                            }
+                            let newUser = new User({name, email, password: hashPass});
+                            newUser.save((err, success) => {
+                                if (err) {
+                                    console.log("Error in signup while account activation: ", err);
+                                    return res.status(400), json({error: 'error activating account'});
+                                }
+                                res.json({
+                                    message: "Signup success!"
+                                })
+                            })
+                        })
                     });
                 })
-
-                // User.findOne({email}).exec((err, user) => {
-                //     if (user) {
-                //         return res.status(400).json({error: "User with this email already exists."})
-                //     }
-                //     let newUser = new User({name, email, password: tmpPassword});
-                //     newUser.save((err, success) => {
-                //         if (err) {
-                //             console.log("Error in signup while account activation: ", err);
-                //             return res.status(400), json({error: 'error activating account'});
-                //         }
-                //         res.json({
-                //             message: "Signup success!"
-                //         })
-                //     })
-                // })
             })
         } else {
             return res.json({error: "something went wrong!"})
