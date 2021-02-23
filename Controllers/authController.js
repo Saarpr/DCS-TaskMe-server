@@ -53,14 +53,15 @@ exports.authController = {
                 console.log("name:" , name )
                 console.log("email:" , email )
                 console.log("password:" , password )
-                var tmpPassword;
+                let tmpPassword;
                 bcrypt.genSalt(10, function (err, salt) {
-                    bcrypt.hash(password , salt, function (error, hash) {
+                    console.log("Encrypting ")
+                    bcrypt.hash(password , salt, function (error, hashPass) {
                         if (err){
                             return console.log(error);
                         }
-                        console.log(hash)
-                        tmpPassword = hash;
+                        console.log(hashPass)
+                        tmpPassword = hashPass;
                     });
                 });
                 console.log("tmpPassword:" , tmpPassword )
