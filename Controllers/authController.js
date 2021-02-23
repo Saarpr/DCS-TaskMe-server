@@ -1,11 +1,9 @@
 const User = require('../Models/user');
 const {OAuth2Client, UserRefreshClient} = require('google-auth-library');
 const client = new OAuth2Client(process.env.G_ID);
-// mailgun
 const mailgun = require("mailgun-js");
 const DOMAIN = process.env.MAILGUN_DOMAIN;
 const mg = mailgun({apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN});
-// json web token
 const jwt = require('jsonwebtoken');
 const {json} = require('express');
 const bcrypt = require('bcrypt');
@@ -28,7 +26,7 @@ exports.authController = {
                     <h2>Click to activate your account</h2>
                     <p>${process.env.CLIENT_URL}/auth/activate/${token}</p>        
                 `
-            };    // important!! **** we need to change the url to the real client confirmation page (in react) *****
+            };
 
             mg.messages().send(data, function (error, body) {
                 if (error) {
@@ -43,7 +41,7 @@ exports.authController = {
         })
     },
     activateAccount(req, res) {
-        const {token} = req.body; //maybe get by headers
+        const {token} = req.body;
         console.log("activating:", token)
         if (token) {
             jwt.verify(token, process.env.JWT_TOKEN_ACTIVATE, function (err, decodedToken) {
