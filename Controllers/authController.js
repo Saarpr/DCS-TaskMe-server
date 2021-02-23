@@ -43,6 +43,7 @@ exports.authController = {
     },
     activateAccount(req, res) {
         const { token } = req.body; //maybe get by headers
+        console.log("activating:" , token )
         if (token) {
             jwt.verify(token, process.env.JWT_TOKEN_ACTIVATE, function (err, decodedToken) {
                 if (!decodedToken) {
