@@ -50,7 +50,10 @@ exports.authController = {
                     res.status(400).json({ error: "Incorrect or Expired link!" })
                 }
                 const { name, email, password } = decodedToken;
-                let tmpPassword;
+                console.log("name:" , name )
+                console.log("email:" , email )
+                console.log("password:" , password )
+                var tmpPassword;
                 bcrypt.genSalt(10, function (err, salt) {
                     bcrypt.hash(password , salt, function (error, hash) {
                         if (err){
@@ -59,6 +62,8 @@ exports.authController = {
                         tmpPassword = hash;
                     });
                 });
+                console.log("tmpPassword:" , tmpPassword )
+
                 User.findOne({ email }).exec((err, user) => {
                     if (user) {
                         return res.status(400).json({ error: "User with this email already exists." })
