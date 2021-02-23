@@ -59,6 +59,7 @@ exports.authController = {
                         if (err){
                             return console.log(error);
                         }
+                        console.log(hash)
                         tmpPassword = hash;
                     });
                 });
