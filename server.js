@@ -8,7 +8,6 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-
 app.use(cors({
     origin: ["https://taskmeds.netlify.app"],
     methods: ["GET", "POST" , "PUT" , "DELETE"],
@@ -17,11 +16,13 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
 app.set('trust proxy',1);
 app.use(session({
     key: "userId",
     secret: process.env.COOKIEKEY,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     cookie: {
         expires: 60 * 60 * 1000,
