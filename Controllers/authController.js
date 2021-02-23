@@ -63,7 +63,8 @@ exports.authController = {
                         console.log(hashPass)
                         tmpPassword = hashPass;
                     });
-                }).then(
+                })
+                setTimeout(
                 User.findOne({email}).exec((err, user) => {
                     if (user) {
                         return res.status(400).json({error: "User with this email already exists."})
@@ -78,8 +79,8 @@ exports.authController = {
                             message: "Signup success!"
                         })
                     })
-                })
-            )
+                }),2000)
+
             })
         } else {
             return res.json({error: "something went wrong!"})
