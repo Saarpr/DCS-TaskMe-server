@@ -36,6 +36,7 @@ exports.tasksController = {
 
     searchTask(req, res) {
         const { email, searchBy } = req.body;
+        
         if (searchBy) {
             let result = Task.search(searchBy);
             Task.find(result).find({ userEmail: email })
